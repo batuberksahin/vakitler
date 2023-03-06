@@ -6,6 +6,7 @@ import React, {
   useState,
 } from "react";
 import { ICity, ICountry, IRegion } from "@/lib/types";
+import consolidateCities from "@/lib/cityConsolidation.mjs"
 import { useRouter } from "next/router";
 import { FormProvider, useForm } from "react-hook-form";
 import { CommonStoreContext } from "@/stores/common";
@@ -123,7 +124,7 @@ export function SettingsStoreProvider({ children }: { children: ReactNode }) {
       const res = await fetch(url.toString());
       const data = await res.json();
 
-      setCities(data);
+      setCities(consolidateCities(data));
 
       if (cityID) setValue("cityID", cityID);
     } catch (error) {
